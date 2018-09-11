@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:background="@drawable/background"
+    tools:context="login.view.LoginActivity">
+
+
+    <Button
+        android:id="@+id/btn_back"
+        android:background="@drawable/back"
+        android:layout_width="45dp"
+        android:layout_height="wrap_content" />
+
+
+
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:layout_weight="1"
+        android:layout_margin="10dp"
+        android:layout_gravity="center"
+        android:src="@drawable/logo"
+        android:layout_width="150dp"
+        android:layout_height="0dp" />
+
+    <EditText
+        android:layout_marginTop="50dp"
+        android:layout_weight="0.3"
+        android:background="#7fffffff"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:hint="账号"
+        android:id="@+id/et_userName"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+    <EditText
+        android:layout_weight="0.3"
+        android:background="#7fffffff"
+        android:hint="密码"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:id="@+id/et_password"
+        android:inputType="textPassword"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+    <TextView
+        android:layout_margin="5dp"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:id="@+id/tv_showLoginMessage"
+        android:textColor="#ffffff"
+        android:layout_weight="0.2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+
+    <Button
+        android:textColor="#ffffff"
+        android:background="#FA729A"
+        android:text="登录"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_weight="0.3"
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+
+
+    <TextView
+        android:layout_weight="1"
+        android:textColor="#ffffff"
+        android:layout_marginRight="20dp"
+        android:layout_gravity="right"
+        android:text="注册"
+        android:layout_marginTop="10dp"
+        android:id="@+id/tv_register"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp" />
+
+
+</LinearLayout>
