@@ -45,18 +45,23 @@ import java.util.List;
 import base.BaseActivity;
 import beauty.view.BeautyFragment;
 import biyi.view.BiyiActivity;
+import building.view.BuildingFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import car.view.CarFragment;
 import collection.view.CollectionActivity;
 import comic.view.ComicFragment;
+import creative.view.CreativeFragment;
 import de.hdodenhof.circleimageview.CircleImageView;
+import food.view.FoodFragment;
 import game.view.GameFragment;
 import io.reactivex.disposables.CompositeDisposable;
 import landscape.view.LandscapeFragment;
 import login.view.LoginActivity;
 import main.presenter.Presenter;
 import movie.view.MovieFragment;
+import sports.view.SportsFragment;
+import stars.view.StarsFragment;
 
 public class MainActivity extends BaseActivity<IView, Presenter>
         implements NavigationView.OnNavigationItemSelectedListener, IView {
@@ -209,6 +214,26 @@ public class MainActivity extends BaseActivity<IView, Presenter>
                         rv=(RecyclerView)findViewById(R.id.rv_game);
                         rv.smoothScrollToPosition(0);
                         break;
+                    case 6:
+                        rv=(RecyclerView)findViewById(R.id.rv_stars);
+                        rv.smoothScrollToPosition(0);
+                        break;
+                    case 7:
+                        rv=(RecyclerView)findViewById(R.id.rv_food);
+                        rv.smoothScrollToPosition(0);
+                        break;
+                    case 8:
+                        rv=(RecyclerView)findViewById(R.id.rv_sports);
+                        rv.smoothScrollToPosition(0);
+                        break;
+                    case 9:
+                        rv=(RecyclerView)findViewById(R.id.rv_creative);
+                        rv.smoothScrollToPosition(0);
+                        break;
+                    case 10:
+                        rv=(RecyclerView)findViewById(R.id.rv_building);
+                        rv.smoothScrollToPosition(0);
+                        break;
                 }
             }
         });
@@ -232,6 +257,11 @@ public class MainActivity extends BaseActivity<IView, Presenter>
         list.add(new ComicFragment());
         list.add(new MovieFragment());
         list.add(new GameFragment());
+        list.add(new StarsFragment());
+        list.add(new FoodFragment());
+        list.add(new SportsFragment());
+        list.add(new CreativeFragment());
+        list.add(new BuildingFragment());
 
         MyFragmentPageAdapter adapter = new MyFragmentPageAdapter(getSupportFragmentManager(), list);
         vpViewPager.setAdapter(adapter);

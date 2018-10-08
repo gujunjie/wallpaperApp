@@ -10,7 +10,7 @@ import java.util.List;
 
 public class MyFragmentPageAdapter extends FragmentPagerAdapter{
 
-    private  String[] titleName={"风景","美女","汽车","动漫","影视","游戏"};
+    private  String[] titleName={"风景","美女","汽车","动漫","影视","游戏","明星","美食","体育","创意","建筑"};
 
     private List<Fragment> list;
 
