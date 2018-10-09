@@ -16,6 +16,7 @@
         android:id="@+id/tl_tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:tabSelectedTextColor="@color/colorAccent"
         app:tabGravity="fill"
         app:tabMode="scrollable"
         >
