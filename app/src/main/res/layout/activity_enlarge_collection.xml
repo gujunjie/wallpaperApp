@@ -9,7 +9,7 @@
     tools:context="enlargecollection.view.EnlargeCollectionActivity">
 
 
-<ImageView
+<com.github.chrisbanes.photoview.PhotoView
 android:layout_gravity="center"
 android:id="@+id/iv_enlargeCollection"
 android:layout_weight="1"

@@ -9,7 +9,7 @@
     tools:context="biyi.view.BiyiActivity">
 
 
-    <ImageView
+    <com.github.chrisbanes.photoview.PhotoView
         android:layout_gravity="center"
         android:id="@+id/iv_biyiImage"
         android:layout_weight="1"
