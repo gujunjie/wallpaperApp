@@ -17,6 +17,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -29,10 +30,10 @@ import base.BaseActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import enlarge.view.EnlargeActivity;
 import enlargecollection.presenter.Presenter;
+import util.ShareUtil;
 
-public class EnlargeCollectionActivity extends BaseActivity<IView,Presenter> implements IView {
+public class EnlargeCollectionActivity extends BaseActivity<IView, Presenter> implements IView {
 
 
     @BindView(R.id.iv_enlargeCollection)
@@ -43,11 +44,13 @@ public class EnlargeCollectionActivity extends BaseActivity<IView,Presenter> imp
     Button btnDownloadCollection;
     @BindView(R.id.btn_asWallpaperCollection)
     Button btnAsWallpaperCollection;
+    @BindView(R.id.tv_collection_showSize)
+    TextView tvCollectionShowSize;
     private String imageUrl = "";
 
-    private  Presenter presenter;
+    private Presenter presenter;
 
-    private boolean isDownload=false;//该图片是否下载
+    private boolean isDownload = false;//该图片是否下载
 
     public static final String CHANNEL_ID = "channel_id_1";
     public static final String CHANNEL_NAME = "channel_name_1";
@@ -64,7 +67,7 @@ public class EnlargeCollectionActivity extends BaseActivity<IView,Presenter> imp
 
     @Override
     public Presenter createPresenter() {
-        presenter=new Presenter(this);
+        presenter = new Presenter(this);
         return presenter;
     }
 
@@ -87,21 +90,21 @@ public class EnlargeCollectionActivity extends BaseActivity<IView,Presenter> imp
         }
     }
 
-    @OnClick({R.id.iv_enlargeCollection, R.id.btn_deleteCollection, R.id.btn_downloadCollection, R.id.btn_asWallpaperCollection})
+    @OnClick({R.id.iv_enlargeCollection, R.id.btn_deleteCollection, R.id.btn_downloadCollection, R.id.btn_asWallpaperCollection,R.id.btn_shareCollection})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_enlargeCollection:
                 finish();//离开页面
                 break;
             case R.id.btn_deleteCollection:
-                 AlertDialog.Builder normalDialog =
+                AlertDialog.Builder normalDialog =
                         new AlertDialog.Builder(this);
-                    normalDialog.setMessage("你确定要取消收藏吗?");
+                normalDialog.setMessage("你确定要取消收藏吗?");
                 normalDialog.setPositiveButton("确定",
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                presenter.deleteCollection(EnlargeCollectionActivity.this,imageUrl);
+                                presenter.deleteCollection(EnlargeCollectionActivity.this, imageUrl);
                             }
                         });
                 normalDialog.setNegativeButton("取消",
@@ -117,22 +120,24 @@ public class EnlargeCollectionActivity extends BaseActivity<IView,Presenter> imp
 
                 break;
             case R.id.btn_downloadCollection:
-                if(!isDownload)
-                {
-                    presenter.collectionDownload(this,imageUrl);
-                    Toast.makeText(this,"开始下载",Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(this,"该图片已经下载",Toast.LENGTH_SHORT).show();
+                if (!isDownload) {
+                    presenter.collectionDownload(this, imageUrl);
+                    Toast.makeText(this, "开始下载", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "该图片已经下载", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.btn_asWallpaperCollection:
-                if(isDownload)
-                {   setWallpaper();
+                if (isDownload) {
+                    setWallpaper();
                     //图片已经下载就设置壁纸
-                }else {
-                    presenter.collectionDownload(this,imageUrl);
+                } else {
+                    presenter.collectionDownload(this, imageUrl);
                     setWallpaper();//没有下载就先下载再设置壁纸
                 }
+                break;
+            case R.id.btn_shareCollection:
+                ShareUtil.showShare(EnlargeCollectionActivity.this,imageUrl);
                 break;
         }
     }
@@ -152,7 +157,7 @@ public class EnlargeCollectionActivity extends BaseActivity<IView,Presenter> imp
         // 最后通知图库更新
         sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
                 Uri.fromFile(new File(file.getPath()))));
-        isDownload=true;//该图片已经下载
+        isDownload = true;//该图片已经下载
     }
 
     @Override
@@ -160,20 +165,19 @@ public class EnlargeCollectionActivity extends BaseActivity<IView,Presenter> imp
         createNotification("下载失败");
     }
 
-    public void createNotification(String message)
-    {
-        NotificationManager manager=(NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+    public void createNotification(String message) {
+        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             //只在Android O之上需要渠道
             NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID,
                     CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
             //如果这里用IMPORTANCE_NOENE就需要在系统的设置里面开启渠道，
             //通知才能正常弹出
 
-            Intent intent=new Intent(Intent.ACTION_VIEW, Uri.parse(MediaStore.Images.Media.INTERNAL_CONTENT_URI.toString()));
-            PendingIntent pi=PendingIntent.getActivity(this,0,intent,0);
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(MediaStore.Images.Media.INTERNAL_CONTENT_URI.toString()));
+            PendingIntent pi = PendingIntent.getActivity(this, 0, intent, 0);
             manager.createNotificationChannel(notificationChannel);
-            Notification notification=new NotificationCompat.Builder(this)
+            Notification notification = new NotificationCompat.Builder(this)
                     .setContentTitle(message)
                     .setContentText("已保存至本地相册")
                     .setWhen(System.currentTimeMillis())
@@ -181,30 +185,29 @@ public class EnlargeCollectionActivity extends BaseActivity<IView,Presenter> imp
                     .setChannelId(CHANNEL_ID)
                     .setAutoCancel(true)
                     .setContentIntent(pi)
-                    .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.logo))
+                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.logo))
                     .setDefaults(NotificationCompat.DEFAULT_ALL)
                     .build();
-            manager.notify(1,notification);
+            manager.notify(1, notification);
 
-        }else {
-            Intent intent=new Intent(Intent.ACTION_VIEW, Uri.parse(MediaStore.Images.Media.INTERNAL_CONTENT_URI.toString()));
-            PendingIntent pi=PendingIntent.getActivity(this,0,intent,0);
-            Notification notification=new NotificationCompat.Builder(this)
+        } else {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(MediaStore.Images.Media.INTERNAL_CONTENT_URI.toString()));
+            PendingIntent pi = PendingIntent.getActivity(this, 0, intent, 0);
+            Notification notification = new NotificationCompat.Builder(this)
                     .setContentTitle(message)
                     .setContentText("已保存至本地相册")
                     .setWhen(System.currentTimeMillis())
                     .setSmallIcon(R.drawable.logo)
                     .setAutoCancel(true)
                     .setContentIntent(pi)
-                    .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.logo))
+                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.logo))
                     .setDefaults(NotificationCompat.DEFAULT_ALL)
                     .build();
-            manager.notify(1,notification);
+            manager.notify(1, notification);
         }
     }
 
-    public void setWallpaper()
-    {
+    public void setWallpaper() {
         AlertDialog.Builder normalDialog =
                 new AlertDialog.Builder(this);
         normalDialog.setMessage("你确定要设置该图片为壁纸吗？");
@@ -212,7 +215,7 @@ public class EnlargeCollectionActivity extends BaseActivity<IView,Presenter> imp
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent=new Intent(Intent.ACTION_SET_WALLPAPER);
+                        Intent intent = new Intent(Intent.ACTION_SET_WALLPAPER);
                         startActivity(intent);
                     }
                 });
@@ -229,9 +232,11 @@ public class EnlargeCollectionActivity extends BaseActivity<IView,Presenter> imp
 
     @Override
     public void tipsDeleteCollectionSuccess() {
-        Toast.makeText(this,"已经取消收藏",Toast.LENGTH_SHORT).show();
-        Intent intent=getIntent();
-        setResult(1,intent);
+        Toast.makeText(this, "已经取消收藏", Toast.LENGTH_SHORT).show();
+        Intent intent = getIntent();
+        setResult(1, intent);
         finish();
     }
+
+
 }

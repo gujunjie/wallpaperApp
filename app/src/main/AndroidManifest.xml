@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.abc.kantu">
+    package="com.example.abc.kantu"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -10,6 +11,7 @@
 
     <application
         android:name=".MyApplication"
+        tools:replace="android:name"
         android:allowBackup="true"
         android:icon="@mipmap/myapplogo"
         android:label="@string/app_name"

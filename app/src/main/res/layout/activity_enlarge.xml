@@ -28,7 +28,6 @@
             android:layout_gravity="center"
             android:textColor="#ffffff"
             android:layout_width="wrap_content"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
              />
 
@@ -54,8 +53,15 @@
             <Button
                 android:background="@drawable/wallpaper"
                 android:layout_marginLeft="15dp"
-                android:layout_marginRight="10dp"
                 android:id="@+id/btn_asWallpaper"
+                android:layout_width="25dp"
+                android:layout_height="25dp" />
+
+            <Button
+                android:background="@drawable/share"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:id="@+id/btn_share"
                 android:layout_width="25dp"
                 android:layout_height="25dp" />
 

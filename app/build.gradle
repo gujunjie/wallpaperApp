@@ -1,6 +1,49 @@
 apply plugin: 'com.android.application'
 apply plugin: 'realm-android'
+apply plugin: 'com.mob.sdk'
 
+MobSDK {
+    appKey "27bfd0a1855c8"
+    appSecret "845477c9c3255a7b913ed748537cd0c1"
+
+    ShareSDK {
+        //平台配置信息
+        devInfo {
+            SinaWeibo {
+                sortId 4
+                appKey "568898243"
+                appSecret "38a4f8204cc784f81f9f0daaf31e02e3"
+                callbackUri "http://www.sharesdk.cn"
+                shareByAppClient false
+            }
+            Wechat {
+                sortId 2
+                appId "wx4868b35061f87885"
+                appSecret "64020361b8ec4c99936c0e3999a9f249"
+                bypassApproval true
+                enable true
+            }
+            QQ {
+                sortId 3
+                appId "100371282"
+                appKey "aed9b0303e3ed1e27bae87c33761161d"
+                shareByAppClient true
+            }
+
+            QZone{
+                sortId 1
+                appId "100371282"
+                appKey "aed9b0303e3ed1e27bae87c33761161d"
+                bypassApproval "false"
+                enable true
+            }
+
+
+        }
+
+
+    }
+}
 android {
     compileSdkVersion 27
     defaultConfig {
