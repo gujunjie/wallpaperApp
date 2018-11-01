@@ -21,9 +21,9 @@ public class Presenter extends BasePresenter<IView> implements IModel.onSaveImag
         iModel=new EnlargeModel();
     }
 
-    public void saveCollection(String url, Context context)
+    public void saveCollection(String url, Context context,int imageWidth,int imageHeight)
     {
-        iModel.saveImageUrl(url,context,this);
+        iModel.saveImageUrl(url,context,imageWidth,imageHeight,this);
     }
 
     public void download(Context context,String downloadUrl)

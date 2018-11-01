@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -43,8 +44,11 @@ public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.Vi
             @Override
             public void onClick(View v) {
                 Collection collection=list.get(holder.getAdapterPosition());
+                int imageWidth=collection.getImageWidth();
+                int imageHeight=collection.getImageHeight();
                 Intent intent=new Intent(context, EnlargeCollectionActivity.class);
                 intent.putExtra("imageUrl",collection.getCollectionImageUrl());
+                intent.putExtra("imageSize",imageWidth+" X "+imageHeight);
                 activity.startActivityForResult(intent,1);
             }
         });
@@ -55,7 +59,14 @@ public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Collection collection=list.get(position);
 
-        Glide.with(context).load(collection.getCollectionImageUrl()).into(holder.photoImage);
+        FrameLayout.LayoutParams layoutParams=(FrameLayout.LayoutParams)holder.photoImage.getLayoutParams();
+        float itemWidth=(ScreenUtil.getScreenWidth(holder.photoImage.getContext())-3*4)/2;
+        layoutParams.width=(int)itemWidth;
+        float scale=(itemWidth+0f)/collection.getImageWidth();
+        layoutParams.height=(int)(collection.getImageHeight()*scale);
+        holder.photoImage.setLayoutParams(layoutParams);
+
+        Glide.with(context).load(collection.getCollectionImageUrl()).override(layoutParams.width,layoutParams.height).into(holder.photoImage);
     }
 
     @Override

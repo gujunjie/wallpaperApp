@@ -6,7 +6,7 @@ import java.io.File;
 
 public interface IModel {
 
-    void saveImageUrl(String url, Context context,onSaveImageUrlListener listener);
+    void saveImageUrl(String url, Context context,int imageWidth,int imageHeight,onSaveImageUrlListener listener);
 
     void download(Context context,String downloadUrl,onDownloadListener listener);
 

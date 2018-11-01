@@ -39,6 +39,8 @@ public class BiyiModel implements IModel {
         realm.beginTransaction();
         Collection collection=new Collection();
         collection.setCollectionImageUrl(imageurl);
+        collection.setImageWidth(1920);
+        collection.setImageHeight(1080);
         if(user==null)
         {
 

@@ -48,6 +48,8 @@ public class EnlargeCollectionActivity extends BaseActivity<IView, Presenter> im
     TextView tvCollectionShowSize;
     private String imageUrl = "";
 
+
+
     private Presenter presenter;
 
     private boolean isDownload = false;//该图片是否下载
@@ -74,6 +76,7 @@ public class EnlargeCollectionActivity extends BaseActivity<IView, Presenter> im
     public void initUI() {
         Intent intent = getIntent();
         imageUrl = intent.getStringExtra("imageUrl");
+        tvCollectionShowSize.setText(intent.getStringExtra("imageSize"));
         Glide.with(this)
                 .load(imageUrl)
                 .crossFade(500)

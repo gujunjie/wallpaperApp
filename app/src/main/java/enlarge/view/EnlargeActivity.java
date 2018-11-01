@@ -51,6 +51,10 @@ public class EnlargeActivity extends BaseActivity<IView, Presenter> implements I
 
     private String imageUrl;//图片链接
 
+    private int imageWidth;//图片宽度
+
+    private int imageHeight;//图片高度
+
     private Presenter presenter;
 
     private boolean isDownload = false;//该图片是否下载
@@ -72,7 +76,9 @@ public class EnlargeActivity extends BaseActivity<IView, Presenter> implements I
 
     public void initUI() {
         Intent intent = getIntent();
-        tvShowSize.setText(intent.getStringExtra("imageSize"));
+        imageWidth=intent.getIntExtra("imageWidth",0);
+        imageHeight=intent.getIntExtra("imageHeight",0);
+        tvShowSize.setText(imageWidth+" X "+imageHeight);
         imageUrl = intent.getStringExtra("imageUrl");
         Glide.with(EnlargeActivity.this)
                 .load(imageUrl)
@@ -104,7 +110,7 @@ public class EnlargeActivity extends BaseActivity<IView, Presenter> implements I
             case R.id.btn_collect:
                 SharedPreferences sp = getSharedPreferences("loginData", MODE_PRIVATE);
                 if (sp.getBoolean("isLogin", false)) {
-                    presenter.saveCollection(imageUrl, this);
+                    presenter.saveCollection(imageUrl, this,imageWidth,imageHeight);
                 } else {
                     Toast.makeText(this, "请先登录您的账号", Toast.LENGTH_SHORT).show();
                 }

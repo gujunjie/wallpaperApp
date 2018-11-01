@@ -37,11 +37,7 @@ MobSDK {
                 bypassApproval "false"
                 enable true
             }
-
-
         }
-
-
     }
 }
 android {

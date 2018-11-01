@@ -80,7 +80,7 @@ public class EnlargeModel implements IModel{
 
     }
     @Override
-    public void saveImageUrl(String url, Context context, onSaveImageUrlListener listener) {
+    public void saveImageUrl(String url, Context context,int imageWidth,int imageHeight,onSaveImageUrlListener listener) {
         SharedPreferences sp=context.getSharedPreferences("loginData",Context.MODE_PRIVATE);
         String name=sp.getString("loginAccount","");
         realm=Realm.getDefaultInstance();
@@ -88,6 +88,8 @@ public class EnlargeModel implements IModel{
         realm.beginTransaction();
         Collection collection=new Collection();
         collection.setCollectionImageUrl(url);
+        collection.setImageWidth(imageWidth);
+        collection.setImageHeight(imageHeight);
         if(user==null)
         {
 

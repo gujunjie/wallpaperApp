@@ -52,19 +52,20 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_item,parent,false);
-        final ViewHolder holder=new ViewHolder(view);
-        holder.photoView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BaiduImage.ImgsBean photo=list.get(holder.getAdapterPosition());
-                String imageUrl=photo.getImageUrl();
-                String DowmloadUrl=photo.getDownloadUrl();
-                Intent intent=new Intent(context, EnlargeActivity.class);
-                intent.putExtra("imageSize",photo.getImageWidth()+" x "+photo.getImageHeight());
-                intent.putExtra("imageUrl",imageUrl);
-                intent.putExtra("downloadUrl",DowmloadUrl);
-                context.startActivity(intent);
+                View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_item,parent,false);
+                final ViewHolder holder=new ViewHolder(view);
+                holder.photoView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        BaiduImage.ImgsBean photo=list.get(holder.getAdapterPosition());
+                        String imageUrl=photo.getImageUrl();
+                        String DowmloadUrl=photo.getDownloadUrl();
+                        Intent intent=new Intent(context, EnlargeActivity.class);
+                        intent.putExtra("imageWidth",photo.getImageWidth());
+                        intent.putExtra("imageHeight",photo.getImageHeight());
+                        intent.putExtra("imageUrl",imageUrl);
+                        intent.putExtra("downloadUrl",DowmloadUrl);
+                        context.startActivity(intent);
             }
         });
         return holder;
