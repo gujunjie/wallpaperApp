@@ -25,54 +25,54 @@ public class StartupModel implements IStartupModel {
     @Override
     public void getImageUrl(Context context,final onGetImageUrlListener listener) {
 
-//        File cacheFile=new File(context.getExternalCacheDir().toString(),"cache");
-//
-//        int cacheSize=10*1024*1024;
-//
-//        Cache cache=new Cache(cacheFile,cacheSize);
-//
-//        OkHttpClient client=new OkHttpClient.Builder()
-//                .addInterceptor(new CacheInterceptor(context))
-//                .addNetworkInterceptor(new CacheInterceptor(context))
-//                .cache(cache)
-//                .build();
-//
-//        Retrofit retrofit=new Retrofit.Builder()
-//                .baseUrl("https://api.ixiaowai.cn/gqapi/")
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-//                .client(client)
-//                .build();
-//
-//        UserClient cilent=retrofit.create(UserClient.class);
-//
-//        cilent.getImageUrl().subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Observer<XinlangImage>() {
-//                    @Override
-//                    public void onSubscribe(Disposable d) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onNext(XinlangImage value) {
-//                       listener.onGetImageUrlSuccess(value.getImgurl());
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                       listener.onGetImageUrlFailure();
-//                    }
-//
-//                    @Override
-//                    public void onComplete() {
-//
-//                    }
-//                });
+        File cacheFile=new File(context.getExternalCacheDir().toString(),"cache");
 
-        Random random=new Random();
-        int index=random.nextInt(50)+1;
-        String imageUrl="https://gitee.com/gujunjie/imageServers/raw/master/startupWallpaper/"+index+".jpg";
-        listener.onGetImageUrlSuccess(imageUrl);
+        int cacheSize=10*1024*1024;
+
+        Cache cache=new Cache(cacheFile,cacheSize);
+
+        OkHttpClient client=new OkHttpClient.Builder()
+                .addInterceptor(new CacheInterceptor(context))
+                .addNetworkInterceptor(new CacheInterceptor(context))
+                .cache(cache)
+                .build();
+
+        Retrofit retrofit=new Retrofit.Builder()
+                .baseUrl("https://api.ixiaowai.cn/gqapi/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .client(client)
+                .build();
+
+        UserClient cilent=retrofit.create(UserClient.class);
+
+        cilent.getImageUrl().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<XinlangImage>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(XinlangImage value) {
+                       listener.onGetImageUrlSuccess(value.getImgurl());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                       listener.onGetImageUrlFailure();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+//        Random random=new Random();
+//        int index=random.nextInt(41)+1;
+//        String imageUrl="https://gitee.com/gujunjie/imageServers/raw/master/startupWallpaper/"+index+".jpg";
+//        listener.onGetImageUrlSuccess(imageUrl);
     }
 }
