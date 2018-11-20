@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.abc.kantu.PhotoAdapter;
+import adapter.PhotoAdapter;
 import com.example.abc.kantu.R;
 
 import java.util.ArrayList;
@@ -24,11 +24,12 @@ public class BuildingFragment extends BaseFragment<IBuildingView,Presenter> impl
 
     private Presenter presenter;
 
-    private RecyclerView rvBuilding;
+    private RecyclerView rvLandscape;
+    private SwipeRefreshLayout rfLandscape;
 
     private List<BaiduImage.ImgsBean> list=new ArrayList<>();
 
-    private SwipeRefreshLayout rfBuilding;
+
 
     private  PhotoAdapter adapter;
 
@@ -46,9 +47,9 @@ public class BuildingFragment extends BaseFragment<IBuildingView,Presenter> impl
         {
             init(list);
         }
-        View view = inflater.inflate(R.layout.building_layout, container, false);
-        rvBuilding=(RecyclerView)view.findViewById(R.id.rv_building);
-        rfBuilding=(SwipeRefreshLayout)view.findViewById(R.id.refresh_building);
+        View view = inflater.inflate(R.layout.landscape_layout, container, false);
+        rvLandscape=(RecyclerView)view.findViewById(R.id.rv_landscape);
+        rfLandscape=(SwipeRefreshLayout)view.findViewById(R.id.refresh_landscape);
 
 
 
@@ -62,13 +63,13 @@ public class BuildingFragment extends BaseFragment<IBuildingView,Presenter> impl
     @Override
     public void init(List<BaiduImage.ImgsBean> list) {
         StaggeredGridLayoutManager manager=new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
-        rvBuilding.setLayoutManager(manager);
+        rvLandscape.setLayoutManager(manager);
 
         manager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
 
         adapter=new PhotoAdapter(list,getActivity());
 
-        rvBuilding.setAdapter(adapter);
+        rvLandscape.setAdapter(adapter);
     }
 
     @Override
@@ -84,12 +85,12 @@ public class BuildingFragment extends BaseFragment<IBuildingView,Presenter> impl
     public void refresh()
     {
 
-        rfBuilding.setColorSchemeColors(getResources().getColor(R.color.colorAccent));
-        rfBuilding.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        rfLandscape.setColorSchemeColors(getResources().getColor(R.color.colorAccent));
+        rfLandscape.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 presenter.getImageList(getActivity());
-                rfBuilding.setRefreshing(false);
+                rfLandscape.setRefreshing(false);
             }
         });
     }

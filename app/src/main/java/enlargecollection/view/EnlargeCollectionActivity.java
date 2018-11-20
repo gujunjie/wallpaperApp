@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.abc.kantu.R;
+import com.gyf.barlibrary.ImmersionBar;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -63,7 +64,8 @@ public class EnlargeCollectionActivity extends BaseActivity<IView, Presenter> im
         setContentView(R.layout.activity_enlarge_collection);
         ButterKnife.bind(this);
 
-        immersionBar();
+        ImmersionBar.with(this).init();
+
         initUI();
     }
 
@@ -83,15 +85,7 @@ public class EnlargeCollectionActivity extends BaseActivity<IView, Presenter> im
                 .into(ivEnlargeCollection);
     }
 
-    public void immersionBar() {
-        if (Build.VERSION.SDK_INT >= 21) {
-            View decorView = getWindow().getDecorView();
-            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-            decorView.setSystemUiVisibility(option);
-            getWindow().setStatusBarColor(Color.TRANSPARENT);
-        }
-    }
+
 
     @OnClick({R.id.iv_enlargeCollection, R.id.btn_deleteCollection, R.id.btn_downloadCollection, R.id.btn_asWallpaperCollection,R.id.btn_shareCollection})
     public void onViewClicked(View view) {

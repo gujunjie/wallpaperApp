@@ -89,5 +89,11 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
     implementation 'com.android.support:cardview-v7:27.1.1'
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
+    implementation 'com.gyf.immersionbar:immersionbar:2.3.2-beta05'
+
+
+
+    implementation 'cn.jzvd:jiaozivideoplayer:6.3.1'
+
 
 }

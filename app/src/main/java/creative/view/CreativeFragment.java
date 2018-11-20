@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.abc.kantu.PhotoAdapter;
+import adapter.PhotoAdapter;
 import com.example.abc.kantu.R;
 
 import java.util.ArrayList;
@@ -24,11 +24,11 @@ import creative.presenter.Presenter;
 public class CreativeFragment extends BaseFragment<ICreativeView, Presenter> implements ICreativeView {
     private Presenter presenter;
 
-    private RecyclerView rvCreative;
+    private RecyclerView rvLandscape;
+    private SwipeRefreshLayout rfLandscape;
 
     private List<BaiduImage.ImgsBean> list=new ArrayList<>();
 
-    private SwipeRefreshLayout rfCreative;
 
     private PhotoAdapter adapter;
 
@@ -45,9 +45,9 @@ public class CreativeFragment extends BaseFragment<ICreativeView, Presenter> imp
             init(list);
         }
 
-        View view = inflater.inflate(R.layout.creative_layout, container, false);
-        rvCreative=(RecyclerView)view.findViewById(R.id.rv_creative);
-        rfCreative=(SwipeRefreshLayout)view.findViewById(R.id.refresh_creative);
+        View view = inflater.inflate(R.layout.landscape_layout, container, false);
+        rvLandscape=(RecyclerView)view.findViewById(R.id.rv_landscape);
+        rfLandscape=(SwipeRefreshLayout)view.findViewById(R.id.refresh_landscape);
 
 
         refresh();
@@ -60,13 +60,13 @@ public class CreativeFragment extends BaseFragment<ICreativeView, Presenter> imp
     @Override
     public void init(List<BaiduImage.ImgsBean> list) {
         StaggeredGridLayoutManager manager=new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
-        rvCreative.setLayoutManager(manager);
+        rvLandscape.setLayoutManager(manager);
 
         manager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
 
         adapter=new PhotoAdapter(list,getActivity());
 
-        rvCreative.setAdapter(adapter);
+        rvLandscape.setAdapter(adapter);
     }
 
     @Override
@@ -77,12 +77,12 @@ public class CreativeFragment extends BaseFragment<ICreativeView, Presenter> imp
 
     public void refresh()
     {
-        rfCreative.setColorSchemeColors(getResources().getColor(R.color.colorAccent));
-        rfCreative.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        rfLandscape.setColorSchemeColors(getResources().getColor(R.color.colorAccent));
+        rfLandscape.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 presenter.getImageList(getActivity());
-                rfCreative.setRefreshing(false);
+                rfLandscape.setRefreshing(false);
             }
         });
     }

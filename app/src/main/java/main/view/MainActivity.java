@@ -1,19 +1,15 @@
 package main.view;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
@@ -24,44 +20,36 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.abc.kantu.MyFragmentPageAdapter;
+import duanzi.view.DuanZiFragment;
+import com.example.abc.kantu.HostFragment;
+import adapter.MyFragmentPageAdapter;
+
+import com.example.abc.kantu.NewsFragment;
 import com.example.abc.kantu.R;
+import video.view.VideoFragment;
+import com.gyf.barlibrary.ImmersionBar;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import base.BaseActivity;
-import beauty.view.BeautyFragment;
 import biyi.view.BiyiActivity;
-import building.view.BuildingFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import car.view.CarFragment;
 import collection.view.CollectionActivity;
-import comic.view.ComicFragment;
-import creative.view.CreativeFragment;
 import de.hdodenhof.circleimageview.CircleImageView;
-import food.view.FoodFragment;
-import game.view.GameFragment;
 import io.reactivex.disposables.CompositeDisposable;
-import landscape.view.LandscapeFragment;
 import login.view.LoginActivity;
 import main.presenter.Presenter;
-import movie.view.MovieFragment;
-import sports.view.SportsFragment;
-import stars.view.StarsFragment;
 
 public class MainActivity extends BaseActivity<IView, Presenter>
         implements NavigationView.OnNavigationItemSelectedListener, IView {
@@ -76,8 +64,9 @@ public class MainActivity extends BaseActivity<IView, Presenter>
     NavigationView navView;
     @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
-    @BindView(R.id.fab)
-    FloatingActionButton fab;
+
+
+    private TabLayout.Tab tab;
 
     private List<Fragment> list;
 
@@ -88,20 +77,13 @@ public class MainActivity extends BaseActivity<IView, Presenter>
 
     private Uri imageUri;
 
-    private int position=0;//tab的位置
-
-    private RecyclerView rv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
-        // immersionBar();
-
-        //setWindowStatusBarColor(this,R.color.colorAccent);
-
+        ImmersionBar.with(this).statusBarColor(R.color.colorAccent).init();
 
         initUI();
 
@@ -127,20 +109,6 @@ public class MainActivity extends BaseActivity<IView, Presenter>
     }
 
 
-    public void setWindowStatusBarColor(Activity activity, int colorResId) {
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                Window window = activity.getWindow();
-                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                window.setStatusBarColor(activity.getResources().getColor(colorResId));
-
-                //底部导航栏
-                //window.setNavigationBarColor(activity.getResources().getColor(colorResId));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     public void handleIcon() {
         View view = navView.getHeaderView(0);
@@ -185,60 +153,6 @@ public class MainActivity extends BaseActivity<IView, Presenter>
     public void initUI() {
         setSupportActionBar(toolbar);
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (position)
-                {
-                    case 0:
-                        rv=(RecyclerView)findViewById(R.id.rv_landscape);
-                        rv.smoothScrollToPosition(0);
-                        break;
-                    case 1:
-                        rv=(RecyclerView)findViewById(R.id.rv_beauty);
-                        rv.smoothScrollToPosition(0);
-                        break;
-                    case 2:
-                        rv=(RecyclerView)findViewById(R.id.rv_car);
-                        rv.smoothScrollToPosition(0);
-                        break;
-                    case 3:
-                        rv=(RecyclerView)findViewById(R.id.rv_comic);
-                        rv.smoothScrollToPosition(0);
-                        break;
-                    case 4:
-                        rv=(RecyclerView)findViewById(R.id.rv_movie);
-                        rv.smoothScrollToPosition(0);
-                        break;
-                    case 5:
-                        rv=(RecyclerView)findViewById(R.id.rv_game);
-                        rv.smoothScrollToPosition(0);
-                        break;
-                    case 6:
-                        rv=(RecyclerView)findViewById(R.id.rv_stars);
-                        rv.smoothScrollToPosition(0);
-                        break;
-                    case 7:
-                        rv=(RecyclerView)findViewById(R.id.rv_food);
-                        rv.smoothScrollToPosition(0);
-                        break;
-                    case 8:
-                        rv=(RecyclerView)findViewById(R.id.rv_sports);
-                        rv.smoothScrollToPosition(0);
-                        break;
-                    case 9:
-                        rv=(RecyclerView)findViewById(R.id.rv_creative);
-                        rv.smoothScrollToPosition(0);
-                        break;
-                    case 10:
-                        rv=(RecyclerView)findViewById(R.id.rv_building);
-                        rv.smoothScrollToPosition(0);
-                        break;
-                }
-            }
-        });
-
-
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -250,39 +164,28 @@ public class MainActivity extends BaseActivity<IView, Presenter>
 
 
     public void initFragment() {
-        list = new ArrayList<>();
-        list.add(new LandscapeFragment());
-        list.add(new BeautyFragment());
-        list.add(new CarFragment());
-        list.add(new ComicFragment());
-        list.add(new MovieFragment());
-        list.add(new GameFragment());
-        list.add(new StarsFragment());
-        list.add(new FoodFragment());
-        list.add(new SportsFragment());
-        list.add(new CreativeFragment());
-        list.add(new BuildingFragment());
+          list=new ArrayList<>();
+          list.add(new HostFragment());
+          list.add(new VideoFragment());
+          list.add(new NewsFragment());
+          list.add(new DuanZiFragment());
 
-        MyFragmentPageAdapter adapter = new MyFragmentPageAdapter(getSupportFragmentManager(), list);
+
+        MyFragmentPageAdapter adapter=new MyFragmentPageAdapter(getSupportFragmentManager(),list);
         vpViewPager.setAdapter(adapter);
         tlTabLayout.setupWithViewPager(vpViewPager);
 
-        tlTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                position = tab.getPosition();
-            }
+        tab=tlTabLayout.getTabAt(0);
+        tab.setIcon(R.drawable.host_selector);
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
+        tab=tlTabLayout.getTabAt(1);
+        tab.setIcon(R.drawable.video_selector);
 
-            }
+        tab=tlTabLayout.getTabAt(2);
+        tab.setIcon(R.drawable.news_selector);
 
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
+        tab=tlTabLayout.getTabAt(3);
+        tab.setIcon(R.drawable.duanzi_selector);
     }
 
     @Override
@@ -354,15 +257,7 @@ public class MainActivity extends BaseActivity<IView, Presenter>
         return true;
     }
 
-    public void immersionBar() {
-        if (Build.VERSION.SDK_INT >= 21) {
-            View decorView = getWindow().getDecorView();
-            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-            decorView.setSystemUiVisibility(option);
-            getWindow().setStatusBarColor(Color.TRANSPARENT);
-        }
-    }
+
 
     @Override
     protected void onDestroy() {

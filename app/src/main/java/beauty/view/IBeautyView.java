@@ -1,5 +1,6 @@
 package beauty.view;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import beauty.model.BaiduImage;

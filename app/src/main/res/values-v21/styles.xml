@@ -5,4 +5,8 @@
         <item name="windowNoTitle">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
+
+    <style name="TabItemText" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">10dp</item>
+    </style>
 </resources>

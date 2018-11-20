@@ -1,5 +1,9 @@
 package beauty.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
 import java.util.List;
 
 public class BaiduImage {
@@ -89,7 +93,7 @@ public class BaiduImage {
         this.imgs = imgs;
     }
 
-    public static class ImgsBean {
+    public static class ImgsBean implements Parcelable{
         /**
          * id : 9569244597
          * desc : 小清新,写真,清纯,短发
@@ -211,6 +215,79 @@ public class BaiduImage {
         private String fashion;
         private String title;
         private List<String> tags;
+
+        protected ImgsBean(Parcel in) {
+            imageUrl = in.readString();
+            id = in.readString();
+            desc = in.readString();
+            fromPageTitle = in.readString();
+            column = in.readString();
+            parentTag = in.readString();
+            date = in.readString();
+            downloadUrl = in.readString();
+            imageWidth = in.readInt();
+            imageHeight = in.readInt();
+            thumbnailUrl = in.readString();
+            thumbnailWidth = in.readInt();
+            thumbnailHeight = in.readInt();
+            thumbLargeWidth = in.readInt();
+            thumbLargeHeight = in.readInt();
+            thumbLargeUrl = in.readString();
+            thumbLargeTnWidth = in.readInt();
+            thumbLargeTnHeight = in.readInt();
+            thumbLargeTnUrl = in.readString();
+            siteName = in.readString();
+            siteLogo = in.readString();
+            siteUrl = in.readString();
+            fromUrl = in.readString();
+            isBook = in.readString();
+            bookId = in.readString();
+            objUrl = in.readString();
+            shareUrl = in.readString();
+            setId = in.readString();
+            albumId = in.readString();
+            isAlbum = in.readInt();
+            albumName = in.readString();
+            albumNum = in.readInt();
+            userId = in.readString();
+            isVip = in.readInt();
+            isDapei = in.readInt();
+            dressId = in.readString();
+            dressBuyLink = in.readString();
+            dressPrice = in.readInt();
+            dressDiscount = in.readInt();
+            dressExtInfo = in.readString();
+            dressTag = in.readString();
+            dressNum = in.readInt();
+            objTag = in.readString();
+            dressImgNum = in.readInt();
+            hostName = in.readString();
+            pictureId = in.readString();
+            pictureSign = in.readString();
+            dataSrc = in.readString();
+            contentSign = in.readString();
+            albumDi = in.readString();
+            canAlbumId = in.readString();
+            albumObjNum = in.readString();
+            appId = in.readString();
+            photoId = in.readString();
+            fromName = in.readInt();
+            fashion = in.readString();
+            title = in.readString();
+            tags = in.createStringArrayList();
+        }
+
+        public static final Creator<ImgsBean> CREATOR = new Creator<ImgsBean>() {
+            @Override
+            public ImgsBean createFromParcel(Parcel in) {
+                return new ImgsBean(in);
+            }
+
+            @Override
+            public ImgsBean[] newArray(int size) {
+                return new ImgsBean[size];
+            }
+        };
 
         public String getId() {
             return id;
@@ -683,6 +760,75 @@ public class BaiduImage {
         public void setTags(List<String> tags) {
             this.tags = tags;
         }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+
+            dest.writeString(imageUrl);
+            dest.writeString(id);
+            dest.writeString(desc);
+            dest.writeString(fromPageTitle);
+            dest.writeString(column);
+            dest.writeString(parentTag);
+            dest.writeString(date);
+            dest.writeString(downloadUrl);
+            dest.writeInt(imageWidth);
+            dest.writeInt(imageHeight);
+            dest.writeString(thumbnailUrl);
+            dest.writeInt(thumbnailWidth);
+            dest.writeInt(thumbnailHeight);
+            dest.writeInt(thumbLargeWidth);
+            dest.writeInt(thumbLargeHeight);
+            dest.writeString(thumbLargeUrl);
+            dest.writeInt(thumbLargeTnWidth);
+            dest.writeInt(thumbLargeTnHeight);
+            dest.writeString(thumbLargeTnUrl);
+            dest.writeString(siteName);
+            dest.writeString(siteLogo);
+            dest.writeString(siteUrl);
+            dest.writeString(fromUrl);
+            dest.writeString(isBook);
+            dest.writeString(bookId);
+            dest.writeString(objUrl);
+            dest.writeString(shareUrl);
+            dest.writeString(setId);
+            dest.writeString(albumId);
+            dest.writeInt(isAlbum);
+            dest.writeString(albumName);
+            dest.writeInt(albumNum);
+            dest.writeString(userId);
+            dest.writeInt(isVip);
+            dest.writeInt(isDapei);
+            dest.writeString(dressId);
+            dest.writeString(dressBuyLink);
+            dest.writeInt(dressPrice);
+            dest.writeInt(dressDiscount);
+            dest.writeString(dressExtInfo);
+            dest.writeString(dressTag);
+            dest.writeInt(dressNum);
+            dest.writeString(objTag);
+            dest.writeInt(dressImgNum);
+            dest.writeString(hostName);
+            dest.writeString(pictureId);
+            dest.writeString(pictureSign);
+            dest.writeString(dataSrc);
+            dest.writeString(contentSign);
+            dest.writeString(albumDi);
+            dest.writeString(canAlbumId);
+            dest.writeString(albumObjNum);
+            dest.writeString(appId);
+            dest.writeString(photoId);
+            dest.writeInt(fromName);
+            dest.writeString(fashion);
+            dest.writeString(title);
+            dest.writeStringList(tags);
+        }
+
 
         public static class OwnerBean {
             /**

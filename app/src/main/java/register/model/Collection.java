@@ -1,14 +1,18 @@
 package register.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import io.realm.RealmObject;
 
-public class Collection extends RealmObject{
+public class Collection extends RealmObject {
 
     private String collectionImageUrl;
 
     private int imageWidth;
 
     private int imageHeight;
+
 
     public int getImageWidth() {
         return imageWidth;
@@ -33,4 +37,6 @@ public class Collection extends RealmObject{
     public void setCollectionImageUrl(String collectionImageUrl) {
         this.collectionImageUrl = collectionImageUrl;
     }
+
+
 }
