@@ -12,7 +12,7 @@
     tools:showIn="@layout/app_bar_main">
 
 
-    <android.support.v4.view.ViewPager
+    <com.example.abc.kantu.MyViewPager
         android:fitsSystemWindows="true"
         android:id="@+id/vp_viewPager"
         android:layout_width="match_parent"

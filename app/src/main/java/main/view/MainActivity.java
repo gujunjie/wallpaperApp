@@ -30,6 +30,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.abc.kantu.HostFragment;
+import com.example.abc.kantu.MyViewPager;
 import com.example.abc.kantu.NewsFragment;
 import com.example.abc.kantu.R;
 import com.flyco.tablayout.CommonTabLayout;
@@ -59,7 +60,7 @@ public class MainActivity extends BaseActivity<IView, Presenter>
 
 
     @BindView(R.id.vp_viewPager)
-    ViewPager vpViewPager;
+    MyViewPager vpViewPager;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.nav_view)
