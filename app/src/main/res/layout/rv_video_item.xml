@@ -48,13 +48,13 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="200dp">
 
             <ImageView
                 android:background="#000000"
                 android:id="@+id/iv_videoImage"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent" />
 
             <ImageView
                 android:src="@drawable/play"

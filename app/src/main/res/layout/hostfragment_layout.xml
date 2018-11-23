@@ -6,11 +6,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.design.widget.TabLayout
+    <com.flyco.tablayout.SlidingTabLayout
         android:id="@+id/tl_host"
-        app:tabGravity="fill"
-        app:tabMode="scrollable"
-        app:tabSelectedTextColor="@color/colorAccent"
+        app:tl_textSelectColor="@color/colorAccent"
+        app:tl_indicator_color="@color/colorAccent"
+        app:tl_textUnselectColor="#808080"
+        app:tl_indicator_corner_radius="10dp"
+        app:tl_indicator_width="20dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>

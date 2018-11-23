@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Process;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -28,34 +29,35 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import duanzi.view.DuanZiFragment;
 import com.example.abc.kantu.HostFragment;
-import adapter.MyFragmentPageAdapter;
-
 import com.example.abc.kantu.NewsFragment;
 import com.example.abc.kantu.R;
-import video.view.VideoFragment;
+import com.flyco.tablayout.CommonTabLayout;
+import com.flyco.tablayout.listener.CustomTabEntity;
+import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.gyf.barlibrary.ImmersionBar;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import adapter.MyFragmentPageAdapter;
 import base.BaseActivity;
 import biyi.view.BiyiActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import collection.view.CollectionActivity;
 import de.hdodenhof.circleimageview.CircleImageView;
+import duanzi.view.DuanZiFragment;
 import io.reactivex.disposables.CompositeDisposable;
 import login.view.LoginActivity;
 import main.presenter.Presenter;
+import video.view.VideoFragment;
 
 public class MainActivity extends BaseActivity<IView, Presenter>
         implements NavigationView.OnNavigationItemSelectedListener, IView {
 
-    @BindView(R.id.tl_tabLayout)
-    TabLayout tlTabLayout;
+
     @BindView(R.id.vp_viewPager)
     ViewPager vpViewPager;
     @BindView(R.id.toolbar)
@@ -64,6 +66,8 @@ public class MainActivity extends BaseActivity<IView, Presenter>
     NavigationView navView;
     @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
+    @BindView(R.id.tl_tabLayout)
+    CommonTabLayout tlTabLayout;
 
 
     private TabLayout.Tab tab;
@@ -107,7 +111,6 @@ public class MainActivity extends BaseActivity<IView, Presenter>
     public void autoLogin() {
         presenter.autoLogin(this);
     }
-
 
 
     public void handleIcon() {
@@ -164,28 +167,63 @@ public class MainActivity extends BaseActivity<IView, Presenter>
 
 
     public void initFragment() {
-          list=new ArrayList<>();
-          list.add(new HostFragment());
-          list.add(new VideoFragment());
-          list.add(new NewsFragment());
-          list.add(new DuanZiFragment());
+        list = new ArrayList<>();
+        list.add(new HostFragment());
+        list.add(new VideoFragment());
+        list.add(new NewsFragment());
+        list.add(new DuanZiFragment());
 
-
-        MyFragmentPageAdapter adapter=new MyFragmentPageAdapter(getSupportFragmentManager(),list);
+        MyFragmentPageAdapter adapter = new MyFragmentPageAdapter(getSupportFragmentManager(), list);
         vpViewPager.setAdapter(adapter);
-        tlTabLayout.setupWithViewPager(vpViewPager);
 
-        tab=tlTabLayout.getTabAt(0);
-        tab.setIcon(R.drawable.host_selector);
+        ArrayList<CustomTabEntity> customTabEntityArrayList=new ArrayList<>();
 
-        tab=tlTabLayout.getTabAt(1);
-        tab.setIcon(R.drawable.video_selector);
+        final String title[] ={"主页","视屏","新闻","段子"};
 
-        tab=tlTabLayout.getTabAt(2);
-        tab.setIcon(R.drawable.news_selector);
+        final int iconSelect[] ={R.drawable.host_pressed,R.drawable.video_pressed,R.drawable.news_pressed,R.drawable.duanzi_pressed};
 
-        tab=tlTabLayout.getTabAt(3);
-        tab.setIcon(R.drawable.duanzi_selector);
+        final int iconUnSelect[]={R.drawable.host,R.drawable.video,R.drawable.news,R.drawable.duanzi};
+
+        for(int i=0;i<4;i++)
+        {
+            final int j=i;
+            customTabEntityArrayList.add(new CustomTabEntity() {
+
+
+                @Override
+                public String getTabTitle() {
+                    return title[j];
+                }
+
+                @Override
+                public int getTabSelectedIcon() {
+                    return iconSelect[j];
+                }
+
+                @Override
+                public int getTabUnselectedIcon() {
+                    return iconUnSelect[j];
+                }
+            });
+        }
+
+
+
+
+        tlTabLayout.setTabData(customTabEntityArrayList);
+
+        tlTabLayout.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelect(int position) {
+                vpViewPager.setCurrentItem(position);
+            }
+
+            @Override
+            public void onTabReselect(int position) {
+
+            }
+        });
+
     }
 
     @Override
@@ -214,7 +252,7 @@ public class MainActivity extends BaseActivity<IView, Presenter>
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.biyin_wallpaper) {
-            Intent intent=new Intent(MainActivity.this, BiyiActivity.class);
+            Intent intent = new Intent(MainActivity.this, BiyiActivity.class);
             startActivity(intent);
             return true;
         }
@@ -250,13 +288,12 @@ public class MainActivity extends BaseActivity<IView, Presenter>
             startActivity(intent);
 
         } else if (id == R.id.quit) {
-            android.os.Process.killProcess(android.os.Process.myPid());
+            Process.killProcess(Process.myPid());
             System.exit(0);
         }
 
         return true;
     }
-
 
 
     @Override

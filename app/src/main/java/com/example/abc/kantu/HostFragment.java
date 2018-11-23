@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.flyco.tablayout.SlidingTabLayout;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +32,7 @@ public class HostFragment extends Fragment {
 
 
     private ViewPager vp_host;
-    private TabLayout tl_host;
+    private SlidingTabLayout tl_host;
 
     private List<Fragment> list;
 
@@ -40,7 +42,7 @@ public class HostFragment extends Fragment {
        View view=inflater.inflate(R.layout.hostfragment_layout,container,false);
 
         vp_host=(ViewPager)view.findViewById(R.id.vp_host);
-        tl_host=(TabLayout)view.findViewById(R.id.tl_host);
+        tl_host=(SlidingTabLayout) view.findViewById(R.id.tl_host);
 
         initUI();
 
@@ -62,8 +64,11 @@ public class HostFragment extends Fragment {
         list.add(new CreativeFragment());
         list.add(new BuildingFragment());
 
+        String[] titleName={"风景","美女","汽车","动漫","影视","游戏","明星","美食","体育","创意","建筑"};
+
         MyHostFragmentPageAdapter adapter = new MyHostFragmentPageAdapter(getChildFragmentManager(), list);
         vp_host.setAdapter(adapter);
-        tl_host.setupWithViewPager(vp_host);
+        tl_host.setViewPager(vp_host,titleName);
+
     }
 }

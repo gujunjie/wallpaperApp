@@ -12,7 +12,7 @@
     tools:showIn="@layout/app_bar_main">
 
 
-    <com.example.abc.kantu.MyViewPager
+    <android.support.v4.view.ViewPager
         android:fitsSystemWindows="true"
         android:id="@+id/vp_viewPager"
         android:layout_width="match_parent"
@@ -20,16 +20,21 @@
         android:layout_weight="10"
         />
 
-    <android.support.design.widget.TabLayout
+    <com.flyco.tablayout.CommonTabLayout
         android:fitsSystemWindows="true"
         android:id="@+id/tl_tabLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:tl_textsize="12sp"
+        app:tl_iconMargin="1dp"
+        app:tl_iconWidth="25dp"
+        app:tl_iconHeight="25dp"
         android:layout_weight="1"
-        app:tabTextAppearance="@style/TabItemText"
-        app:tabIndicatorHeight="0dp"
-        app:tabSelectedTextColor="@color/colorAccent"
-        app:tabGravity="fill"
+        app:tl_indicator_height="0dp"
+        app:tl_indicator_anim_enable="true"
+        app:tl_iconGravity="TOP"
+        app:tl_textSelectColor="@color/colorAccent"
+        app:tl_textUnselectColor="#808080"
         />
 
 

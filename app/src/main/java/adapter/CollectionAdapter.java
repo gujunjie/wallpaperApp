@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.example.abc.kantu.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import enlargecollection.view.EnlargeCollectionActivity;
 import io.realm.RealmList;

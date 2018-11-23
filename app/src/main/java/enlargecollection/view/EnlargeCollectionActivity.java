@@ -7,12 +7,12 @@ import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
@@ -21,17 +21,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.abc.kantu.MyEnlargeViewPager;
 import com.example.abc.kantu.R;
+import com.github.chrisbanes.photoview.PhotoView;
 import com.gyf.barlibrary.ImmersionBar;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
+import adapter.MyEnlargePageAdapter;
 import base.BaseActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import enlargecollection.presenter.Presenter;
+import register.model.Collection;
 import util.ShareUtil;
 
 public class EnlargeCollectionActivity extends BaseActivity<IView, Presenter> implements IView {
@@ -234,6 +240,5 @@ public class EnlargeCollectionActivity extends BaseActivity<IView, Presenter> im
         setResult(1, intent);
         finish();
     }
-
 
 }

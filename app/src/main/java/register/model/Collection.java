@@ -3,6 +3,8 @@ package register.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
+
 import io.realm.RealmObject;
 
 public class Collection extends RealmObject {
@@ -37,6 +39,7 @@ public class Collection extends RealmObject {
     public void setCollectionImageUrl(String collectionImageUrl) {
         this.collectionImageUrl = collectionImageUrl;
     }
+
 
 
 }

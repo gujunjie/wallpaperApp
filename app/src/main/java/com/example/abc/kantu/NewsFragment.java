@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.flyco.tablayout.SlidingTabLayout;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +28,7 @@ public class NewsFragment extends Fragment {
 
 
     private ViewPager vp_news;
-    private TabLayout tl_news;
+    private SlidingTabLayout tl_news;
 
     private List<Fragment> list;
 
@@ -37,7 +39,7 @@ public class NewsFragment extends Fragment {
         View view=inflater.inflate(R.layout.newsfragment_layout,container,false);
 
         vp_news=(ViewPager)view.findViewById(R.id.vp_news);
-        tl_news=(TabLayout)view.findViewById(R.id.tl_news);
+        tl_news=(SlidingTabLayout) view.findViewById(R.id.tl_news);
 
         initUI();
         return  view;
@@ -54,8 +56,10 @@ public class NewsFragment extends Fragment {
         list.add(new NewSportFragment());
         list.add(new GengDuoFragment());
 
+        String[] titleName={"推荐","科技","财经","军事","汽车","体育","更多"};
+
         MyNewsFragmentPageAdapter adapter = new MyNewsFragmentPageAdapter(getChildFragmentManager(), list);
         vp_news.setAdapter(adapter);
-        tl_news.setupWithViewPager(vp_news);
+        tl_news.setViewPager(vp_news,titleName);
     }
 }

@@ -90,9 +90,8 @@ dependencies {
     implementation 'com.android.support:cardview-v7:27.1.1'
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
     implementation 'com.gyf.immersionbar:immersionbar:2.3.2-beta05'
-
-
-
+    implementation'com.android.support:support-v4:27.1.1'
+    implementation'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
     implementation 'cn.jzvd:jiaozivideoplayer:6.3.1'
 
 
