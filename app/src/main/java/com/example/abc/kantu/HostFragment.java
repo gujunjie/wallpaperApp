@@ -66,6 +66,7 @@ public class HostFragment extends Fragment {
 
         String[] titleName={"风景","美女","汽车","动漫","影视","游戏","明星","美食","体育","创意","建筑"};
 
+        vp_host.setOffscreenPageLimit(11);
         MyHostFragmentPageAdapter adapter = new MyHostFragmentPageAdapter(getChildFragmentManager(), list);
         vp_host.setAdapter(adapter);
         tl_host.setViewPager(vp_host,titleName);

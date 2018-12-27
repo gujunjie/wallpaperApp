@@ -58,6 +58,7 @@ public class NewsFragment extends Fragment {
 
         String[] titleName={"推荐","科技","财经","军事","汽车","体育","更多"};
 
+        vp_news.setOffscreenPageLimit(7);
         MyNewsFragmentPageAdapter adapter = new MyNewsFragmentPageAdapter(getChildFragmentManager(), list);
         vp_news.setAdapter(adapter);
         tl_news.setViewPager(vp_news,titleName);

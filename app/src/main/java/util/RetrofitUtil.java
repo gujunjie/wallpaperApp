@@ -2,6 +2,8 @@ package util;
 
 import android.content.Context;
 
+import com.facebook.stetho.okhttp3.StethoInterceptor;
+
 import java.io.File;
 
 import okhttp3.Cache;
@@ -23,6 +25,7 @@ public class RetrofitUtil {
          OkHttpClient client=new OkHttpClient.Builder()
                  .addInterceptor(new CacheInterceptor(context))
                  .addNetworkInterceptor(new CacheInterceptor(context))
+                 .addNetworkInterceptor(new StethoInterceptor())
                  .cache(cache)
                  .build();
 

@@ -174,6 +174,7 @@ public class MainActivity extends BaseActivity<IView, Presenter>
         list.add(new NewsFragment());
         list.add(new DuanZiFragment());
 
+        vpViewPager.setOffscreenPageLimit(4);
         MyFragmentPageAdapter adapter = new MyFragmentPageAdapter(getSupportFragmentManager(), list);
         vpViewPager.setAdapter(adapter);
 
